@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Tours de Hanoï</title>
+
+		<!-- Bootstrap CSS -->
+		<!--
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+
+
+		<style>
+
+		body{
+			padding-top: 10px;
+			background-color: #066058;
+		}
+		/**
+		[class*="col-"]{
+			background-color: lightgreen;
+			border: 2px solid blue;
+			border-radius: 6px;
+			line-height: 40px;
+			/*text-align: center;*/
+	
+		
+		button{
+			background-color:#97100B;
+			color:white;
+		}
+
+		h1{
+			color:#C92E29;
+
+
+		}
+		#scenary{
+		
+			
+			
+
+			
+		}
+		.disques{
+			margin: 4px auto;
+			background: #FA6C60;
+			border: 1px solid black;
+			
+		}
+
+		[id*="pile-"]{
+
+			display:inline-block;
+			
+             bottom: 0; 
+			margin : 0 12px;
+	
+		}
+		.socle{
+			margin-bottom: 0px;
+			margin: 0 auto;
+			background: #FBF8F8;	
+			border: 1px solid black;		
+
+		}
+
+		#div1 {
+		    width: 350px;
+		    height: 70px;
+		    padding: 10px;
+		    border: 1px solid #aaaaaa;
+		}
+		</style>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="container">
+			<div class="row" id="title">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<h1>Hanoî tower</h1>
+				</div>
+			</div>
+
+			<div class="row" id="game_platform">
+				<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+					<div class="row" id="scenary">
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" id="pile-1">
+							
+						</div>
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" id="pile-2">
+							
+						</div>
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" id="pile-3">
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<span class="label label-default">Vos mouvements : <spam id="player-moves"> X </spam> </span> <br/>
+							<span class="label label-default">Nombre minimums de mouvement pour résoudre ce problème : <spam id="minimum-moves"> 0 </spam> </span>
+
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<span class="label">Veuillez rentrer le nombre de disques</span>
+							<select name="disques-nombre" id="i-disques-nombre" class="form-control" required="required" onchange="onSelectDisques()">
+									<option value="0">choix</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+							</select>	
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<button type="button" class="btn-default" >Restart</button>
+							<button type="button">Solution </button>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="test">
+					Complement
+
+					 
+				</div>
+
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		
+		<script type="text/javascript" src="hanoi.js"></script>
+		<!-- Bootstrap JavaScript -->
+		
+
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	</body>
+</html>
