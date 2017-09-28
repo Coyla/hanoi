@@ -2,17 +2,12 @@
 
 
 
-//------------ MAIN -------------------------------
-var movesCounter = 0;
-drawStack();
 
-
-//--------------------------------------------------
 dd = function(message){
-	console.log(`[debug] - ${mesage}`);
+	console.log("[debug] "+ message);
 }
 
-drawStack = function(){
+var drawStack = function(){
 	dd("drawStack");
 	var socleHtml;
 	for(var i=1;i<=3;i++){
@@ -22,9 +17,9 @@ drawStack = function(){
 	}
 }
 
-getHtmlStackDics = function(nombreDisques){
+var getHtmlStackDics = function(nombreDisques){
 	dd("getHtmlStackDics");
-	var dics = []
+	var discs = []
 	let taille = 130;
 	for (var i = 0; i < nombreDisques; i++) {
 		divDisque = document.createElement('div');
@@ -32,13 +27,13 @@ getHtmlStackDics = function(nombreDisques){
 		divDisque.style.width = taille + 'px';
 		divDisque.id = 'disque-'+(i+1);
 		divDisque.className = 'row disques';
-		dics.push(divDisque);
+		discs.push(divDisque);
 		taille -= 20;
 	}
-	return disques;
+	return discs;
 }
 
-drawDics = function(disques){
+var drawDics = function(disques){
 	dd("drawDics");
 	let socles = document.getElementsByClassName('socle');
 	while(disques.length > 0){
@@ -48,7 +43,7 @@ drawDics = function(disques){
 		
 }
 
-loadDiscs = function (){
+var loadDiscs = function (){
 	dd("loadDiscs");
 	let dicsNumber = getNumberOfDicsSelected();
 	let stackDics = getHtmlStackDics(dicsNumber);
@@ -56,7 +51,7 @@ loadDiscs = function (){
 		
 }
 
-showMinimalMovesToSolve = function(){
+var showMinimalMovesToSolve = function(){
 	document.getElementById('minimum-moves').textContent =getMinimalMovesToSolve(getNumberOfDicsSelected());
 }
 
@@ -65,22 +60,28 @@ var getNumberOfDicsSelected = function(){
 	return nombreDsiquesSelected;
 	
 }
+var disableSelectBox = function(){
+	document.getElementById('i-disques-nombre').disabled = true;
+}
 
 var onSelectDisques = function(){
 	loadDiscs();
 	updateDiscDragPermission();
 	showMinimalMovesToSolve();
+	disableSelectBox();
 }
 
-var upMovesCounter = function(){
+var upCounterOfMoves = function(){
 	movesCounter++;
 }
 
 var setDragPermissionDisc = function(disc,permission){
-	disc.draggle = permission;
+	disc.draggable = permission;
 }
  
 var updateDiscDragPermission = function(){
+	//allow only first disc over stack to be draggable
+	//the rest of disc are not draggable
 	dd('allowDragLastDisque');
 	for (var i = 1; i <= 3; i++) {
 		let pile = document.getElementById('pile-'+i);
@@ -127,8 +128,8 @@ var getStackByNumber = function(numberOfStack){
 	return stack;
 }
 
-var moveDisc = function(origin,destinationStack){
-	destinationStack.insertBefore(disc,destinationStack.children[0]);
+var moveDisc = function(originDisc,destinationStack){
+	destinationStack.insertBefore(originDisc,destinationStack.children[0]);
 }
 
 var isBigger = function(originNumber, destinationNumber){
@@ -139,7 +140,7 @@ var isBigger = function(originNumber, destinationNumber){
 }
 
 var isDiscAllowedToDropOverStack = function(disc, stackDestination){
-	if(isBigger(getNumberOfStack(disc.id),getNumberOfStack(parentTarget.children[1].id))){
+	if(isBigger(getNumberOfStack(disc.id),getNumberOfStack(stackDestination.children[1].id))){
 			return true;
 	}
 	return false;
@@ -172,16 +173,23 @@ var setOpacityOfElement = function(element,opacity){
 	element.style.opacity = opacity;
 }
 
-var isDiscTemporary = function(){
-	if(event.target.className == "disques disque-temporaire"){
+var isDiscTemporary = function(disc){
+	if(disc.className == "disques disque-temporaire"){
 		return true;
 	}
 	return false;
 } 
+var isStackEmpty = function(stack){
+	//base and temprary disc count as 2 elements
+	if(stack.length <= 2){
+		return true;
+	}
+	return false;
+}
 
 
 
-//**********___________DRAG______________******************
+//________________DRAG DROP EVENTS______________________
 
 document.addEventListener('drag',function(event){
 	setOpacityOfElement(event.target, "0.4");
@@ -209,13 +217,13 @@ document.addEventListener("dragover", function(event) {
 });
 
 document.addEventListener('dragenter',function(event){
-	if(isDiscTemporary){
-		event.target.style.border = "1px dotted #39EB24";
+	if(isDiscTemporary(event.target)){
+		event.target.style.border = "2px dotted blue";
 	}
 });
 
 document.addEventListener('dragleave',function(event){
-	if(isDiscTemporary){
+	if(isDiscTemporary(event.target)){
 		event.target.style.border = '1px solid #39EB24';	
 	}
 })
@@ -225,23 +233,25 @@ document.addEventListener('drop',function(event){
 	let idOriginDisc = event.dataTransfer.getData("Text");
 	let originDisc = document.getElementById(idOriginDisc);
 	let stackTarget = event.target.parentElement;
-	if(event.target.className == 'disques disque-temporaire'){
-		if(stackTarget.children.length <= 2){
+	if(isDiscTemporary(event.target)){
+		if(isStackEmpty(stackTarget)){
 			moveDisc(originDisc, stackTarget);
-			upMovesCounter();
+			upCounterOfMoves();
 			showNumberMoves();
 		}
 		else{
+			dd("test")
 			//check 
 			if(isDiscAllowedToDropOverStack(originDisc,stackTarget)){
 				moveDisc(originDisc, stackTarget);
-				upMovesCounter();
+				upCounterOfMoves();
 				showNumberMoves();
 			}
 			else{
 				alert("no permission, respect rules please :) ");
 			}
-
 		}
 	}
 });
+var movesCounter = 0;
+drawStack();
