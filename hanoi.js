@@ -89,7 +89,6 @@ var updateDiscDragPermission = function(){
 				setDragPermissionDisc(elementsPile[j],false);
 			}
 		}
-
 	}
 }
 
@@ -123,9 +122,9 @@ var getStackByNumber = function(numberOfStack){
 	return stack;
 }
 
-
-
-var moveDisc = function(originDisc,destinationStack){
+var moveDisc = function(originStack,destinationStack){
+	console.log("moveDisc");
+	originDisc = originStack.children[0];
 	destinationStack.insertBefore(originDisc,destinationStack.children[0]);
 }
 
@@ -142,7 +141,6 @@ var isDiscAllowedToDropOverStack = function(disc, stackDestination){
 	}
 	return false;
 }
-
 
 var drawTemporaryDiscOverStacks = function(originDisc){
 	for (var i = 1; i < 4; i++) {
@@ -198,16 +196,46 @@ var isPlayerWinner = function(){
 	return false;
 }
 
-
 var loadGraphicComponents = function(){
 	drawStack();
+}
+
+var onAutomaticSolution = function(){
+	let origin = document.getElementById('pile-1');
+	let destination = document.getElementById('pile-3');
+	let tempo = document.getElementById('pile-2');
+	autoMove(getNumberOfDicsSelected(), origin, destination, tempo)
 }
 
 
 //_______________auto solution_____________________
 
+var autoMove = function(nDiscToMov, origin, destination, tempo){
+	console.log("autoMove")
+	if(nDiscToMov == 1){
+		console.log("1");
+		moveDisc(origin,destination);
+		alert('next step');
+		wait(2000);
+	}
+	else{
+		console.log("2");
+		autoMove(nDiscToMov-1, origin, tempo , destination);
+		moveDisc(origin,destination);
+		alert('next step');
+		wait(2000);
+		autoMove(nDiscToMov-1, tempo, destination, origin);
+		console.log("4");
+	}
+	
+}
 
-
+function wait(ms){
+	var d = new Date();
+	var d2 = null;
+	do { d2 = new Date(); }
+	while(d2-d < ms);
+}
 
 
 //________________DRAG DROP EVENTS______________________
@@ -256,7 +284,7 @@ document.addEventListener('drop',function(event){
 	let stackTarget = event.target.parentElement;
 	if(isDiscTemporary(event.target)){
 		if(isStackTargetEmpty(stackTarget) || isDiscAllowedToDropOverStack(originDisc,stackTarget)){
-			moveDisc(originDisc, stackTarget);
+			moveDisc(originDisc.parentElement, stackTarget);
 			upCounterOfMoves();
 			showNumberMoves();
 			if(isPlayerWinner()){
@@ -267,11 +295,7 @@ document.addEventListener('drop',function(event){
 			alert("no permission, respect rules please :) ");
 		}
 	}
-	
 });
-
-
-
 
 let movesCounter = 0;
 loadGraphicComponents();

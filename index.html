@@ -16,7 +16,7 @@
 		body{
 			padding-top: 10px;
 			background-color: #066058;
-			text-align: center;
+			/**text-align: center;*/
 		}
 		/**
 		[class*="col-"]{
@@ -128,8 +128,8 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<button type="button" class="btn-default" onclick="document.location.reload()">Restart </button>
-							<button type="button">Solution </button>
+							<button type="button" class="btn-default" onclick="document.location.reload(true)">Restart </button>
+							<button type="button" onClick="onAutomaticSolution();">Solution </button>
 						</div>
 					</div>
 				</div>
