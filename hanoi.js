@@ -211,23 +211,18 @@ var onAutomaticSolution = function(){
 //_______________auto solution_____________________
 
 var autoMove = function(nDiscToMov, origin, destination, tempo){
-	console.log("autoMove")
 	if(nDiscToMov == 1){
-		console.log("1");
 		moveDisc(origin,destination);
 		alert('next step');
 		wait(2000);
 	}
 	else{
-		console.log("2");
 		autoMove(nDiscToMov-1, origin, tempo , destination);
 		moveDisc(origin,destination);
 		alert('next step');
 		wait(2000);
 		autoMove(nDiscToMov-1, tempo, destination, origin);
-		console.log("4");
 	}
-	
 }
 
 function wait(ms){
@@ -236,7 +231,6 @@ function wait(ms){
 	do { d2 = new Date(); }
 	while(d2-d < ms);
 }
-
 
 //________________DRAG DROP EVENTS______________________
 

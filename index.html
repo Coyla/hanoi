@@ -9,76 +9,7 @@
 		<!-- Bootstrap CSS -->
 		<!--
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
-
-
-		<style>
-
-		body{
-			padding-top: 10px;
-			background-color: #066058;
-			/**text-align: center;*/
-		}
-		/**
-		[class*="col-"]{
-			background-color: lightgreen;
-			border: 2px solid blue;
-			border-radius: 6px;
-			line-height: 40px;
-			/*text-align: center;*/
-	
-		
-		button{
-			background-color:#97100B;
-			color:white;
-		}
-
-		h1{
-			color:#C92E29;
-
-
-		}
-		span{
-			color: white;
-		}
-		#scenary{
-		
-			
-			
-
-			
-		}
-		.disques{
-			margin: 4px auto;
-			background: #FA6C60;
-			border: 1px solid black;
-			
-		}
-
-		[id*="pile-"]{
-
-			display:inline-block;
-			
-             bottom: 0; 
-			margin : 0 12px;
-	
-		}
-		.socle{
-			margin-bottom: 0px;
-			margin: 0 auto;
-			background: #FBF8F8;	
-			border: 1px solid black;
-			height: 30px;
-			width: 150px;	
-
-		}
-
-		#div1 {
-		    width: 350px;
-		    height: 70px;
-		    padding: 10px;
-		    border: 1px solid #aaaaaa;
-		}
-		</style>
+		<link rel="stylesheet" href="style.css">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -128,13 +59,21 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
 							<button type="button" class="btn-default" onclick="document.location.reload(true)">Restart </button>
 							<button type="button" onClick="onAutomaticSolution();">Solution </button>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="test">
-					Complement
+					<span >Rules ... <BR>
+					1.Only one disk can be moved at a time.<BR>
+					2.Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack.<BR>
+					3.No disk may be placed on top of a smaller disk.<BR>
+					</span>
+					<p>How to solve this game ...
+					Programmming algorithm ...
+					see code : https://github.com/Coyla/hanoi</p>
 				</div>
 
 			</div>
