@@ -16,6 +16,7 @@
 		body{
 			padding-top: 10px;
 			background-color: #066058;
+			text-align: center;
 		}
 		/**
 		[class*="col-"]{
@@ -35,6 +36,9 @@
 			color:#C92E29;
 
 
+		}
+		span{
+			color: white;
 		}
 		#scenary{
 		
@@ -106,12 +110,12 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<span class="label label-default">Vos mouvements : <spam id="player-moves"> X </spam> </span> <br/>
+							<span class="label label-default">Vos mouvements : <spam id="player-moves"> 0 </spam> </span> <br/>
 							<span class="label label-default">Nombre minimums de mouvement pour résoudre ce problème : <spam id="minimum-moves"> 0 </spam> </span>
 
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<span class="label">Veuillez rentrer le nombre de disques</span>
+							<span class="label">Veuillez selectioner le nombre de disques</span>
 							<select name="disques-nombre" id="i-disques-nombre" class="form-control" required="required" onchange="onSelectDisques()">
 									<option value="0">choix</option>
 									<option value="3">3</option>
@@ -124,15 +128,13 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<button type="button" class="btn-default" >Restart</button>
+							<button type="button" class="btn-default" onclick="document.location.reload()">Restart </button>
 							<button type="button">Solution </button>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="test">
 					Complement
-
-					 
 				</div>
 
 			</div>

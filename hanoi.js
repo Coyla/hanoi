@@ -1,9 +1,4 @@
-
-
-
-
-
-dd = function(message){
+var dd = function(message){
 	console.log("[debug] "+ message);
 }
 
@@ -57,7 +52,7 @@ var showMinimalMovesToSolve = function(){
 
 var getNumberOfDicsSelected = function(){
 	let nombreDsiquesSelected = document.getElementById('i-disques-nombre').value;
-	return nombreDsiquesSelected;
+	return Number(nombreDsiquesSelected);
 	
 }
 var disableSelectBox = function(){
@@ -107,8 +102,8 @@ var showNumberMoves  = function(){
 	document.getElementById('player-moves').textContent = movesCounter;
 }
 
-var getNumberOfStack = function(htmlNameId){
-	var hash = htmlNameId.substring(7,8);
+var getNumberOfDiscById = function(idDisc){
+	var hash = idDisc.substring(7,8);
 	return Number(hash);
 }
 
@@ -128,6 +123,8 @@ var getStackByNumber = function(numberOfStack){
 	return stack;
 }
 
+
+
 var moveDisc = function(originDisc,destinationStack){
 	destinationStack.insertBefore(originDisc,destinationStack.children[0]);
 }
@@ -140,7 +137,7 @@ var isBigger = function(originNumber, destinationNumber){
 }
 
 var isDiscAllowedToDropOverStack = function(disc, stackDestination){
-	if(isBigger(getNumberOfStack(disc.id),getNumberOfStack(stackDestination.children[1].id))){
+	if(isBigger(getNumberOfDiscById(disc.id),getNumberOfDiscById(stackDestination.children[1].id))){
 			return true;
 	}
 	return false;
@@ -179,13 +176,37 @@ var isDiscTemporary = function(disc){
 	}
 	return false;
 } 
-var isStackEmpty = function(stack){
+var isStackTargetEmpty = function(stack){
 	//base and temprary disc count as 2 elements
 	if(stack.length <= 2){
 		return true;
 	}
 	return false;
 }
+
+var isStackDestinationFull = function(){
+	if((document.getElementById('pile-3').children.length - 2)  === getNumberOfDicsSelected()){
+		return true;
+	}
+	return false;
+}
+
+var isPlayerWinner = function(){
+	if(isStackDestinationFull()){
+		return true;
+	}
+	return false;
+}
+
+
+var loadGraphicComponents = function(){
+	drawStack();
+}
+
+
+//_______________auto solution_____________________
+
+
 
 
 
@@ -234,24 +255,23 @@ document.addEventListener('drop',function(event){
 	let originDisc = document.getElementById(idOriginDisc);
 	let stackTarget = event.target.parentElement;
 	if(isDiscTemporary(event.target)){
-		if(isStackEmpty(stackTarget)){
+		if(isStackTargetEmpty(stackTarget) || isDiscAllowedToDropOverStack(originDisc,stackTarget)){
 			moveDisc(originDisc, stackTarget);
 			upCounterOfMoves();
 			showNumberMoves();
+			if(isPlayerWinner()){
+				alert("Vous avez terminé. Bravo !!");
+			}
 		}
 		else{
-			dd("test")
-			//check 
-			if(isDiscAllowedToDropOverStack(originDisc,stackTarget)){
-				moveDisc(originDisc, stackTarget);
-				upCounterOfMoves();
-				showNumberMoves();
-			}
-			else{
-				alert("no permission, respect rules please :) ");
-			}
+			alert("no permission, respect rules please :) ");
 		}
 	}
+	
 });
-var movesCounter = 0;
-drawStack();
+
+
+
+
+let movesCounter = 0;
+loadGraphicComponents();
